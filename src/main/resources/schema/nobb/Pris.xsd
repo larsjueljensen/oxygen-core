@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b="http://NOBB.Schemas.Pris/8.0" xmlns:ns0="http://NOBB.Schemas.Common/8.0" targetNamespace="http://NOBB.Schemas.Pris/8.0" elementFormDefault="qualified">
+	<xs:import namespace="http://NOBB.Schemas.Common/8.0" schemaLocation="NOBB.Common.xsd"/>
+	<xs:annotation>
+		<xs:documentation>
+      [VERSION]
+    </xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="PrisType">
+		<xs:sequence>
+			<xs:element name="NobbNr" type="ns0:NobbNr">
+				<xs:annotation>
+					<xs:documentation>Referanse til Vare</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NOBBPris" type="b:PrisDatoType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Priser tilgjengelig for aktuell vare. BiztalkERP bruker kun NOBBIndeksPris, NOBB Kontrakt bruker alle 4</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DeltagerNr" type="ns0:DeltagerNrType">
+				<xs:annotation>
+					<xs:documentation>Rereranse til deltager basen</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValutaKode" type="xs:string"/>
+			<xs:element name="PrisGiversVareNr" type="xs:string" minOccurs="0"/>
+			<!-- Varens prisenhet -->
+			<xs:element name="PrisEnhet" type="ns0:EnhetEnum" minOccurs="0"/>
+			<xs:element name="Status" type="ns0:EndringsType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PrisListe">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Pris" type="b:PrisType" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="PrisDatoType">
+		<xs:sequence>
+			<xs:element name="Pris" type="ns0:PrisType"/>
+			<xs:element name="PrisType" type="ns0:PrisTypeEnum">
+				<xs:annotation>
+					<xs:documentation>NOBBIndeksPris, Utsalgspris, SelvkostPris eller InnkjopsPris</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrisDatoFOM" type="xs:date" minOccurs="0"/>
+			<xs:element name="PrisDatoTOM" type="xs:date" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PrisResult">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="EksportType" type="ns0:EksportType"/>
+							<xs:element name="Result" type="ns0:ResultType"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PrisListe">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Pris" type="b:PrisType" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PrisImport">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Pris" type="b:PrisType" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

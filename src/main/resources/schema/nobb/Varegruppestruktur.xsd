@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2006 rel. 3 sp1 (http://www.altova.com) by Osiris (Osiris Data as) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b="http://NOBB.Schemas.Varegruppestruktur/8.0" xmlns:ns0="http://NOBB.Schemas.Common/8.0" targetNamespace="http://NOBB.Schemas.Varegruppestruktur/8.0" elementFormDefault="qualified">
+	<xs:import namespace="http://NOBB.Schemas.Common/8.0" schemaLocation="NOBB.Common.xsd" />
+	<xs:element name="VaregruppestrukturListe">
+		<xs:annotation>
+      <xs:documentation>
+        [VERSION]
+      </xs:documentation>
+			<xs:appinfo>
+				<b:references>
+					<b:reference targetNamespace="http://NOBB.Schemas.NOBB_Types" />
+				</b:references>
+				<b:recordInfo rootTypeName="Varegruppestruktur" />
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Overgruppe" type="b:OvergruppeType" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="OvergruppeType">
+		<xs:sequence>
+			<xs:element name="OvergruppeNr" type="xs:string" />
+			<xs:element name="Beskrivelse" type="xs:string" />
+			<xs:element name="Hovedgruppe" type="b:HovedgruppeType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="Status" type="ns0:EndringsType" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HovedgruppeType">
+		<xs:sequence>
+			<xs:element name="HovedgruppeNr" type="xs:string" />
+			<xs:element name="Beskrivelse" type="xs:string" />
+			<xs:element name="Varegruppe" type="b:VaregruppeType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="Status" type="ns0:EndringsType" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VaregruppeType">
+		<xs:sequence>
+			<xs:element name="VaregruppeNr" type="xs:string" />
+			<xs:element name="Beskrivelse" type="xs:string" />
+			<xs:element name="PSEPrimar" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Primær pris-sammenlignings enhet</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PSESekundar" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Sekundær pris-sammenlignings enhet</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UNSPSCnr" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Nytt felt</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="ns0:EndringsType" />
+			<xs:element name="NRFVareTyper" type="b:NRFVareType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VaregruppestrukturType">
+		<xs:sequence>
+			<xs:element name="Overgruppe" type="b:OvergruppeType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NRFVareType">
+		<xs:sequence>
+			<xs:element name="NRFGruppeNr" type="xs:int" />
+			<xs:element name="Beskrivelse" type="xs:string" />
+			<xs:element name="Status" type="ns0:EndringsType" />
+		</xs:sequence>
+	</xs:complexType>
+
+  <xs:element name="PartnerVaregruppestrukturResult">
+    <xs:annotation>
+      <xs:documentation>Comment describing your root element</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="VaregruppestrukturListe">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Overgruppe" type="b:OvergruppeType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Result" type="ns0:ResultType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="VaregruppestrukturResult">
+    <xs:annotation>
+      <xs:documentation>Comment describing your root element</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EksportType" type="ns0:EksportType"/>
+              <xs:element name="Result" type="ns0:ResultType" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="VaregruppestrukturListe">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Overgruppe" type="b:OvergruppeType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+       
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 (http://www.altova.com) by Knut Hoelsæter (Norsk Byggtjeneste) -->
+<xs:schema xmlns:ns0="http://schemas.microsoft.com/BizTalk/2003" xmlns:b="http://NOBB.Schemas.Common/8.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://NOBB.Schemas.Common/8.0" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:documentation xml:lang="nb">
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="DeltakerType">
+    <xs:sequence>
+      <xs:element name="Nummer" type="b:DeltagerNrType" minOccurs="0"/>
+      <xs:element name="Navn" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ErVareeier" type="b:BooleanEnum" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProdusentType">
+    <xs:sequence>
+      <xs:element name="Navn">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ProdusentNr" type="b:ProdusentNrType"/>
+      <xs:element name="Valuta">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="3"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="StatusEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CREATE"/>
+      <xs:enumeration value="READ"/>
+      <xs:enumeration value="UPDATE"/>
+      <xs:enumeration value="DELETE"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="BooleanEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Ja"/>
+      <xs:enumeration value="Nei"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LevereringsValgEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Bestilling"/>
+      <xs:enumeration value="Vanlig"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="BestillbarEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="IkkeBestillbar"/>
+      <xs:enumeration value="Bestillbar"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EnhetEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="STK"/>
+      <xs:enumeration value="FL"/>
+      <xs:enumeration value="PP"/>
+      <xs:enumeration value="FAT"/>
+      <xs:enumeration value="RØR"/>
+      <xs:enumeration value="DM"/>
+      <xs:enumeration value="PAK"/>
+      <xs:enumeration value="CEN"/>
+      <xs:enumeration value="KAS"/>
+      <xs:enumeration value="M3"/>
+      <xs:enumeration value="LAS"/>
+      <xs:enumeration value="LGD"/>
+      <xs:enumeration value="BØT"/>
+      <xs:enumeration value="KOL"/>
+      <xs:enumeration value="KRT"/>
+      <xs:enumeration value="PAL"/>
+      <xs:enumeration value="PLA"/>
+      <xs:enumeration value="DUS"/>
+      <xs:enumeration value="KG"/>
+      <xs:enumeration value="LTR"/>
+      <xs:enumeration value="CON"/>
+      <xs:enumeration value="ESK"/>
+      <xs:enumeration value="ARK"/>
+      <xs:enumeration value="BNT"/>
+      <xs:enumeration value="T"/>
+      <xs:enumeration value="PAT"/>
+      <xs:enumeration value="SEK"/>
+      <xs:enumeration value="MIL"/>
+      <xs:enumeration value="PAR"/>
+      <xs:enumeration value="M"/>
+      <xs:enumeration value="BUL"/>
+      <xs:enumeration value="SET"/>
+      <xs:enumeration value="KAN"/>
+      <xs:enumeration value="HPL"/>
+      <xs:enumeration value="TUB"/>
+      <xs:enumeration value="SNL"/>
+      <xs:enumeration value="BOX"/>
+      <xs:enumeration value="POS"/>
+      <xs:enumeration value="MM"/>
+      <xs:enumeration value="CM"/>
+      <xs:enumeration value="HL"/>
+      <xs:enumeration value="LM"/>
+      <xs:enumeration value="KVL"/>
+      <xs:enumeration value="G"/>
+      <xs:enumeration value="TON"/>
+      <xs:enumeration value="BK"/>
+      <xs:enumeration value="DSP"/>
+      <xs:enumeration value="TRM"/>
+      <xs:enumeration value="BLO"/>
+      <xs:enumeration value="M2"/>
+      <xs:enumeration value="MPK"/>
+      <xs:enumeration value="SPA"/>
+      <xs:enumeration value="RUL"/>
+      <xs:enumeration value="SPL"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NobbNr">
+    <xs:restriction base="xs:int">
+      <xs:pattern value="\d{8}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GTIN">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="14"/>
+      <xs:minLength value="8"/>
+      <xs:pattern value="([0-9])*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PrisType">
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="9"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OvergruppeNrType">
+    <xs:restriction base="xs:string">
+      <xs:length value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DeltagerNrType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="6"/>
+      <xs:pattern value="([0-9])*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="HovedgruppeNrType">
+    <xs:restriction base="xs:string">
+      <xs:length value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProdusentNrType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="4"/>
+      <xs:pattern value="([0-9])*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ModulStikkordType">
+    <xs:sequence>
+      <xs:element name="StikkOrd">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ModulStandardType">
+    <xs:sequence>
+      <xs:element name="StandardKode" type="xs:string"/>
+      <xs:element name="Beskrivelse" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="VaregruppeNrType">
+    <xs:restriction base="xs:string">
+      <xs:length value="7"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ForetaksNrType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="9"/>
+      <xs:pattern value="([0-9])*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="EndringsType">
+    <xs:sequence>
+      <xs:element name="Created" type="xs:dateTime"/>
+      <xs:element name="Updated" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BestarAvVareType">
+    <xs:sequence>
+      <xs:element name="NOBBNr" type="b:NobbNr"/>
+      <xs:element name="GTIN" type="b:GTIN"/>
+      <xs:element name="Enhet" type="b:EnhetEnum"/>
+      <xs:element name="Antall" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DeltagerTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BrukerMedPris"/>
+      <xs:enumeration value="BrukerUtenPris"/>
+      <xs:enumeration value="Vareeier"/>
+      <xs:enumeration value="Utmeldt"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GodkjenningStatusEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="KontrollertGodkjent"/>
+      <xs:enumeration value="KontrollertUnderkjent"/>
+      <xs:enumeration value="AvventerGodkjenning"/>
+      <xs:enumeration value="IkkeGodkjent"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PersonType">
+    <xs:sequence>
+      <xs:element name="Navn" type="xs:string"/>
+      <xs:element name="Tittel" type="xs:string" minOccurs="0"/>
+      <xs:element name="Telefon" type="xs:string" minOccurs="0"/>
+      <xs:element name="Telefax" type="xs:string" minOccurs="0"/>
+      <xs:element name="Mobil" type="xs:string" minOccurs="0"/>
+      <xs:element name="Epost" type="xs:string"/>
+      <xs:element name="Rolle" type="b:AbonnementEnum"/>
+      <xs:element name="Status" type="b:EndringsType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AbonnementEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Grunndata"/>
+      <xs:enumeration value="NobbKontrakt"/>
+      <xs:enumeration value="Dokumentasjon"/>
+      <xs:enumeration value="ProduktBilder"/>
+      <xs:enumeration value="EDI"/>
+      <xs:enumeration value="MiljoMerke"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ProduktIdentifikatorType">
+    <xs:sequence>
+      <xs:element name="Nummer">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Navn">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PakningsKlasseEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="F"/>
+      <xs:enumeration value="D"/>
+      <xs:enumeration value="T"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AdresseTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="FakturaAdresse"/>
+      <xs:enumeration value="LeveringsAdresse"/>
+      <xs:enumeration value="BesoksAdresse"/>
+      <xs:enumeration value="Annet"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PrisTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="NOBBIndeksPris"/>
+      <xs:enumeration value="InnkjopsPris"/>
+      <xs:enumeration value="UtsalgsPris"/>
+      <xs:enumeration value="SelvkostPris"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ResultEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Success"/>
+      <xs:enumeration value="AtLeastOneMinorErrorOccured"/>
+      <xs:enumeration value="AtLeastOneMajorErrorOccured"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StatusKodeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Finished"/>
+      <xs:enumeration value="FinishedWithErrors"/>
+      <xs:enumeration value="SchemaValidationError"/>
+      <xs:enumeration value="LoginFailed"/>
+      <xs:enumeration value="UnknownError"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ImportItemResultEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="New"/>
+      <xs:enumeration value="Updated"/>
+      <xs:enumeration value="Failed"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ResultType">
+    <xs:sequence>
+      <xs:element name="ResultValue" type="b:ResultEnum" default="Success"/>
+      <xs:element name="Description" type="xs:string" default="" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ImportTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Vare"/>
+      <xs:enumeration value="Pris"/>
+      <xs:enumeration value="Modul"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="InternModulNr">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="8"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="MediaLinkType">
+    <xs:sequence>
+      <xs:element name="MediaType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">
+            PRE
+            MB
+            MAN
+            HMF
+            HMS
+            SER
+            FDV
+            BRO
+            MLJ
+            PB
+            IFC
+            EPD
+            YTE
+            BREEAM
+            MTG
+            ESDS
+            VB
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="10"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="URL" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EksportType">
+    <xs:sequence>
+      <xs:element name="EksportId" type="xs:int">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Eksportens ID. Sendes tilbake som parameter til eksportservice ved eksport av flere batcher.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Eksportmetode" type="xs:string" default="">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Eksportservice metode som har levert XML dokumentet.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EksportParametre" type="xs:string" default="" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Parametere som er benyttet for eksport.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StartIndex" type="xs:int">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Index i eksportens totale resultatsett det er hentet elementer fra.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BatchSize" type="xs:int">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Antall elementer i XML dokument.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TotalCount" type="xs:int">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Totalt antall elementer i eksporten</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VersionNr" type="xs:string" default="">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">NOBB XML versjonsnummer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PakningsMalTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Netto"/>
+      <xs:enumeration value="Brutto"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="VareTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="Standard"/>
+      <xs:enumeration value="Spesialvare"/>
+      <xs:enumeration value="Sammensatt"/>
+      <xs:enumeration value="Display"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PakningsMalType">
+    <xs:sequence>
+      <xs:element name="Bredde" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Pakningens bredde i meter</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Lengde" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Pakningens lengde i meter</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Hoyde" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Pakningens høyde i meter</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Vekt" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Pakningens verkt i kilo</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Volum" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Pakningens volum i m3</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Type" type="b:PakningsMalTypeEnum" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="nb">Netto eller Brutto. Pt. kommer kun Netto her.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="BestarAvType">
+    <xs:sequence>
+      <xs:element name="Antall" type="xs:decimal"/>
+      <xs:element name="Enhet" type="b:EnhetEnum"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TollTariffType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NO"/>
+      <xs:enumeration value="EU"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GTINType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GTIN8"/>
+      <xs:enumeration value="GTIN12"/>
+      <xs:enumeration value="GTIN13"/>
+      <xs:enumeration value="GTIN14"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="VareAvgiftType">
+    <xs:sequence>
+      <xs:element name="AvgiftsKode">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">
+            EM - (Emballasje miljøavgift)
+            EG - (Emballasje grunnavgift)
+            BAT - (Batteriavgift)
+            RA - (Særavgift radio/fjernsyn)
+            TBT - (Særavgift tobakk)
+            LB - (Særavgift uinnspilte kasetter og videobånd)
+            KF - (Særavgift kullsyrefrie alkoholfrie drikker)
+            KU - (Særavgift kullsyreholdige alkoholfrie drikker)
+            MI - (Særavgift mineralolje)
+            MM - (Særavgift mineralolje til motorvogn)
+            SM - (Smøreavgift)
+            BE - (Bensinavgift)
+            KK - (Kull og koks)
+            BM - (Båtmotorer)
+            SJ - (Særavgift på sjokolade og sukkervarer)
+            ACT - (Særavgift på brennevin og vin)
+            OL - (Særavgift på øl)
+            PCB - (PCB-avgift)
+            CM - (CO2-avgift mineralolje)
+            CB - (CO2-avgift bensin)
+            CN - (CO2-avgift naturgass)
+            CL - (CO2-avgift LPG)
+            FK - (Avgift på HFK og PFK)
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="3"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="AvgiftsTekst">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LeverandorVareNrType">
+    <xs:sequence>
+      <xs:element name="Deltaker" type="b:DeltakerVareNr" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DeltakerVareNr">
+    <xs:sequence>
+      <xs:element name="Nummer" type="b:DeltagerNrType"/>
+      <xs:element name="Navn">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ErVareeier" type="b:BooleanEnum"/>
+      <xs:element name="VareNr">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PallInfoType">
+    <xs:sequence>
+      <xs:element name="DetaljistPakPrLag" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Antall av D-PAK per lag i pall</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MaksStablevekt" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Maks stablevekt på pall</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AvgifterType">
+    <xs:sequence>
+      <xs:element name="Avgift" type="b:VareAvgiftType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MerkingerType">
+    <xs:sequence>
+      <xs:element name="Merking" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Svane, Blomst, NAAF, FSC, PEFC</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FarligGodsType">
+    <xs:sequence>
+      <xs:element name="TransportMerking" type="b:TransportMerkingType" minOccurs="0"/>
+      <xs:element name="EmballasjeMerking" minOccurs="0" maxOccurs="unbounded">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TollkoderType">
+    <xs:sequence>
+      <xs:element name="NoTollKode" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="EuTollKode" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransportMerkingType">
+    <xs:sequence>
+      <xs:element name="UNNr">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="4"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="FareNr">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="6"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Beskrivelse" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="EmballasjeGruppe" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NRFDataType">
+    <xs:sequence>
+      <xs:element name="NRFNr" type="xs:int"/>
+      <xs:element name="NRFGruppeNr" type="xs:int"/>
+      <xs:element name="NRFLeverandorNr">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="8"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Dimensjon" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="60"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Navn">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="60"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Tilleggsopplysninger" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="40"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NRFDataImportType">
+    <xs:sequence>
+      <xs:element name="NRFNr" type="xs:int" minOccurs="0"/>
+      <xs:element name="NRFGruppeNr" type="xs:int" minOccurs="0"/>
+      <xs:element name="NRFLeverandorNr" type="xs:string" minOccurs="0"/>
+      <xs:element name="Dimensjon" type="xs:string" minOccurs="0"/>
+      <xs:element name="Navn" type="xs:string" minOccurs="0"/>
+      <xs:element name="Tilleggsopplysninger" type="xs:string" minOccurs="0"/>
+      <xs:element name="ErNRFVare" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="VaretekstTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="VareTekst1"/>
+      <xs:enumeration value="VareTekst2"/>
+      <xs:enumeration value="Lang varetekst"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="VareTekstType">
+    <xs:sequence>
+      <xs:element name="Tekst" type="xs:string"/>
+      <xs:element name="Type" type="b:VaretekstTypeEnum"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Varetekst1Type">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Varetekst2Type">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProdusentVarenummerType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LangVaretekstType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ProdusentListe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Produsent" type="b:ProdusentType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

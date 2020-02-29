@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b="http://NOBB.Schemas.Deltager/8.0" xmlns:ns0="http://NOBB.Schemas.Common/8.0" targetNamespace="http://NOBB.Schemas.Deltager/8.0" elementFormDefault="qualified">
+	<xs:import namespace="http://NOBB.Schemas.Common/8.0" schemaLocation="NOBB.Common.xsd"/>
+	<xs:annotation>
+		<xs:documentation>
+      [VERSION]
+    </xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="DeltagerType">
+		<xs:sequence>
+			<xs:element name="Status" type="ns0:EndringsType"/>
+			<xs:element name="DeltagerNr" type="ns0:DeltagerNrType">
+				<xs:annotation>
+					<xs:documentation>NOBB deltagernr</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DeltagerType" type="ns0:DeltagerTypeEnum">
+				<xs:annotation>
+					<xs:documentation>Vareeier</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Abonnement" type="ns0:AbonnementEnum" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Brukes kun ved DeltagerType = "Vareeier" Valg: Grunndata, EDI, Bilde, Dokumentasjon, NOBBKontrakt</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MarkedsNavn" type="xs:string"/>
+			<xs:element name="JuridiskNavn" type="xs:string" minOccurs="0"/>
+			<xs:element name="Adresse" type="b:AdresseDataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ForetagsNr" type="xs:string" minOccurs="0"/>
+			<xs:element name="EierGLNNr" type="ns0:GTIN" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Deltakers 13 sifret GLN nummer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirmaEpost" type="xs:string"/>
+			<xs:element name="URL" type="xs:string" minOccurs="0"/>
+			<xs:element name="Bransje" type="xs:string"/>
+			<xs:element name="Kjede" type="xs:string" minOccurs="0"/>
+			<xs:element name="KontaktPersoner" type="ns0:PersonType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Ny informasjon/utvidet</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BankGiro" type="xs:string" minOccurs="0"/>
+			<xs:element name="PostGiro" type="xs:string" minOccurs="0"/>
+			<xs:element name="Produsent" type="ns0:ProdusentType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Obligatorisk ved deltagertype "VE"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Prisgiver" type="ns0:DeltagerNrType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GS1LokasjonType">
+		<xs:sequence>
+			<xs:element name="Nummer" type="xs:long"/>
+			<xs:element name="LokasjonAdresse" type="xs:string"/>
+			<xs:element name="Beskrivelse" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="DeltagerListe">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Deltager" type="b:DeltagerType" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="AdresseDataType">
+		<xs:sequence>
+			<xs:element name="Beskrivelse" type="xs:string" minOccurs="0"/>
+			<xs:element name="Adresse" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="PostNr" type="xs:string"/>
+			<xs:element name="PostSted" type="xs:string"/>
+			<xs:element name="Land" type="xs:string"/>
+			<xs:element name="Telefon" type="xs:string" minOccurs="0"/>
+			<xs:element name="Telefax" type="xs:string" minOccurs="0"/>
+			<xs:element name="TelefaxOrdre" type="xs:string" minOccurs="0"/>
+			<xs:element name="GLNLokasjon" type="b:GS1LokasjonType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="AdresseType" type="ns0:AdresseTypeEnum"/>
+			<xs:element name="Status" type="ns0:EndringsType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="DeltagerResult">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="EksportType" type="ns0:EksportType"/>
+							<xs:element name="Result" type="ns0:ResultType"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="DeltagerListe">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Deltager" type="b:DeltagerType" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProdusentRegisterResult">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Header">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="EksportType" type="ns0:EksportType"/>
+							<xs:element name="Result" type="ns0:ResultType"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ProdusentListe">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Produsent" type="ns0:ProdusentType" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

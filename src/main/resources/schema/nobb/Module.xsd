@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ns0="http://NOBB.Schemas.Common/8.0" xmlns:b="http://NOBB.Schemas.Module/8.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://NOBB.Schemas.Module/8.0" elementFormDefault="qualified">
+  <xs:import namespace="http://NOBB.Schemas.Common/8.0" schemaLocation="NOBB.Common.xsd"/>
+  <xs:annotation>
+    <xs:documentation>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:element name="ModulListe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Modul" type="b:ModulType" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ModulType">
+    <xs:sequence>
+      <xs:element name="Status" type="ns0:EndringsType"/>
+      <xs:element name="NOBBmodulNr" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Modulens NOBB modulnummer - 8 siffer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="InterntModulnr" type="ns0:InternModulNr">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Vareeiers interne modulnummer - maks 8 tegn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeltakerNr" type="ns0:DeltagerNrType">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Vareeiers NOBB deltakernummer - maks 6 tegn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProdusentNr" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Produsentens nummer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProdusentNavn" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Navn for produsent av varene i modulen</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VareGruppeNr" type="ns0:VaregruppeNrType">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Modulen tilhører dette varegruppenummer - maks 7 tegn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Merkenavn" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Merkenavn for varene i modulen - maks 30 tegn </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Stikkord" type="ns0:ModulStikkordType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Stikkord for varene i modulen</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Standard" type="ns0:ModulStandardType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Standard for varene i modulen</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Modulbeskrivelse" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Beskrivelse av varene i modulen.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ModulTekst1">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Moduletekst 1 - maks 35 tegn</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="35"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ModulTekst2" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Moduletekst 2 - maks 35 tegn</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="35"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Deltakernavn" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Navn på vareeier for modulen</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VareGruppeNavn" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Modulens varegruppenavn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HovedGruppeNr" type="ns0:HovedgruppeNrType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Modulens hovedgruppenummer - 4 tegn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OverGruppeNr" type="ns0:OvergruppeNrType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Modulens overgruppenummer - 2 tegn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HovedGruppeNavn" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Modulens hovedgruppenavn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OverGruppeNavn" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Modulens overgruppenavn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ModulResult">
+    <xs:annotation>
+      <xs:documentation xml:lang="nb">Rot-element for modul meldingen</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EksportType" type="ns0:EksportType"/>
+              <xs:element name="Result" type="ns0:ResultType"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ModulListe">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Modul" type="b:ModulType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StandardListe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Standard" type="ns0:ModulStandardType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StikkordListe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Stikkord" type="ns0:ModulStikkordType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PartnerStikkordRegisterResult">
+    <xs:annotation>
+      <xs:documentation>Comment describing your root element</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Result" type="ns0:ResultType"/>
+        <xs:element name="StikkordListe">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Stikkord" type="ns0:ModulStikkordType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StikkordRegisterResult">
+    <xs:annotation>
+      <xs:documentation>Comment describing your root element</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EksportType" type="ns0:EksportType"/>
+              <xs:element name="Result" type="ns0:ResultType"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="StikkordListe">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Stikkord" type="ns0:ModulStikkordType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StandardRegisterResult">
+    <xs:annotation>
+      <xs:documentation>Comment describing your root element</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EksportType" type="ns0:EksportType"/>
+              <xs:element name="Result" type="ns0:ResultType"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="StandardListe">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Standard" type="ns0:ModulStandardType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

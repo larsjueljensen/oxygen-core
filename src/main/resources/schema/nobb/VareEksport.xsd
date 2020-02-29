@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b="http://NOBB.Schemas.Vare/8.0" xmlns:ns0="http://NOBB.Schemas.Common/8.0" xmlns:ns1="http://NOBB.Schemas.Pris/8.0" targetNamespace="http://NOBB.Schemas.Vare/8.0" elementFormDefault="qualified" version="3.0">
+  <xs:import namespace="http://NOBB.Schemas.Common/8.0" schemaLocation="NOBB.Common.xsd"/>
+  <xs:import namespace="http://NOBB.Schemas.Pris/8.0" schemaLocation="Pris.xsd"/>
+  <xs:element name="VareEksport">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Vare" type="b:VareType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="VareEksportKriteria">
+    <xs:sequence>
+      <xs:element name="EksportDato" type="xs:date"/>
+      <xs:element name="EksportKriteria" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VareType">
+    <xs:sequence>
+      <xs:element name="Status" type="ns0:EndringsType"/>
+      <xs:element name="NOBBNr" type="ns0:NobbNr">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Varens NOBB-nummer, 8 siffer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NOBBModulNr" type="ns0:NobbNr">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Varens NOBB-modulnummer. Referanse til modul schema.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VareType" type="ns0:VareTypeEnum">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Varens type. Kan være Standard, Sammensatt, Display eller Spesialvare</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VareTekst1" type="ns0:Varetekst1Type">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Varetekst1, maks 35 tegn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VareTekst2" type="ns0:Varetekst2Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Varetekst2, maks 35 tegn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LangVaretekst" type="ns0:LangVaretekstType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Lang varetekst, maks 100 tegn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProdusentVareNr" type="ns0:ProdusentVarenummerType">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Produsentens varenummer, maks 20 tegn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UnderArbeid" type="ns0:BooleanEnum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Er varen under arbeid (Ja/Nei)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BestarAvVareListe" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">NOBBnr for sammensatt vare</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="BestarAvVare" type="ns0:BestarAvVareType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Lagerfort" type="ns0:BooleanEnum">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Er varen normalt lagerført? (Ja/Nei)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HarHoldbarhetsdato" type="ns0:BooleanEnum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Har varen holdbarhetsdato? (Ja/nei)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TalerFrost" type="ns0:BooleanEnum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Tåler varen frost? (Ja/nei)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TUNKoblinger" type="b:TUNType" minOccurs="0"/>
+      <xs:element name="FINFOKoblinger" type="b:FINFOType" minOccurs="0"/>
+      <xs:element name="PrisEnhet" type="ns0:EnhetEnum">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Enhet varen er priset i</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PSEVaregruppe" type="ns0:EnhetEnum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Enhet for prissammenligning som er definert for varens varegruppe</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HarVarePSE" type="ns0:BooleanEnum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Har varen enhet for prissammenligning? (Ja/nei)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Statistikkenhet" type="ns0:EnhetEnum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Statistikkenhet definert på varens varegruppe</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ErstattesAvNOBBnr" type="ns0:NobbNr" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">NOBB-nummer for vare som erstatter varen, dersom den utgår</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SorteringsIndex" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Brukes for styring av egendefinert sorteringsrekkefølge</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Varebeskrivelse" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Beskrivelse av varen og varens egenskaper</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Leverandorer" type="b:LeverandorerType">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Varens leverandører og deres spesifikke informasjon</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Avgifter" type="ns0:AvgifterType" minOccurs="0"/>
+      <xs:element name="NRFData" type="ns0:NRFDataType" minOccurs="0"/>
+      <xs:element name="FarligGods" type="ns0:FarligGodsType" minOccurs="0"/>
+      <xs:element name="TollKoder" type="ns0:TollkoderType" minOccurs="0"/>
+      <xs:element name="GodkjenningsStatus" type="ns0:GodkjenningStatusEnum" minOccurs="0"/>
+      <xs:element name="VareGruppeNr" type="ns0:VaregruppeNrType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Varegruppenummer, 7 siffer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HovedGruppeNr" type="ns0:HovedgruppeNrType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Hovedgruppenummer, 4 siffer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OverGruppeNr" type="ns0:OvergruppeNrType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Overgruppenummer, 2 siffer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VareGruppeNavn" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Varegruppens navn</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="HovedGruppeNavn" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Hovedgruppens navn</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="OverGruppeNavn" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Overgruppens navn</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ModulTekst1" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Modultekst 1 fra varens modul, maks 35 tegn</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="35"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="EndredeFelt" type="b:FeltEndringerVare" minOccurs="0"/>
+      <xs:element name="Egenskaper" type="b:EgenskaperType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Varens IFD egenskaper</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FeltEndringerVare">
+    <xs:sequence>
+      <xs:element name="StatusCreated" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="StatusUpdated" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="NOBBNr" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="NOBBModulNr" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="VareTekst1" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="VareTekst2" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="LangVaretekst" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="LeverandorVareNr" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="ProdusentVareNr" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Lagerfort" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Spesialvare" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="HarHoldbarhetsdato" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="TalerFrost" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="UtgarDato" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="TUNKoblinger" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="FINFOKoblinger" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Merkinger" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Medier" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="PrisEnhet" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Statistikkenhet" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="ErstattesAvNOBBnr" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="SorteringsIndex" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Varebeskrivelse" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Avgifter" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="NRFData" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="FarligGods" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="TollKoder" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="GodkjenningsStatus" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="VareGruppeNr" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="HovedGruppeNr" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="OverGruppeNr" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="PSEVaregruppe" type="ns0:BooleanEnum" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EgenskapdataType">
+    <xs:sequence>
+      <xs:element name="Navn" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Egenskapens navn</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GUID">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Egenskapens unike GUID</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="40"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Verdi" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Eganskapens verdi</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Enhet" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Egenskapens enhet</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EgenskaperType">
+    <xs:sequence>
+      <xs:element name="Egenskap" type="b:EgenskapdataType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PakningType">
+    <xs:sequence>
+      <xs:element name="Status" type="ns0:EndringsType"/>
+      <xs:element name="PakningNr" type="xs:int">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">1, 2, 3 etc</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PakningKlasse" type="ns0:PakningsKlasseEnum" minOccurs="0" maxOccurs="3">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">F, T, D</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PakningsEnhet" type="ns0:EnhetEnum">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Fra enhetsregister</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ErPrisEnhet" type="ns0:BooleanEnum">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Indikerer om pakningens enhet også er varens prisenhet (Ja/Nei)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ErPSE" type="ns0:BooleanEnum">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Indikerer om pakningens enhet også er varens prissammenligningsenhet (Ja/Nei)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="KalkulertInnhold" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Antall av prisenhet i pakningen</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BestarAv" type="ns0:BestarAvType" minOccurs="0"/>
+      <xs:element name="GTIN" type="ns0:GTIN" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">GTIN/strekkode</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GTINType" type="ns0:GTINType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">GTIN8, GTIN12, GTIN13 eller GTIN14</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PakningsMal" type="ns0:PakningsMalType" minOccurs="0" maxOccurs="2"/>
+      <xs:element name="Lagerfort" type="ns0:BooleanEnum">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Er pakningen normalt lagerført hos leverandøren? (Ja/Nei)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Bestillbar" type="ns0:BooleanEnum">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Er pakningen bestillbar fra leverandør? (Ja/nei)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PalleInfo" type="ns0:PallInfoType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Informasjon om T-PAK (Pall)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FraDato" type="xs:date" minOccurs="0"/>
+      <xs:element name="TilDato" type="xs:date" minOccurs="0"/>
+      <xs:element name="EndredeFelt" type="b:FeltEndringerPakning" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FeltEndringerPakning">
+    <xs:sequence>
+      <xs:element name="PakningNr" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="StatusCreated" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="StatusUpdated" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="PakningKlasse" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="PakningsEnhet" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="KalkulertInnhold" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Bredde" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Lengde" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Hoyde" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Vekt" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Volum" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="GTIN" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="GTINType" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Lagerfort" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="Bestillbar" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="BestarAvAntall" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="BestarAvEnhet" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="DetaljistPakPrLag" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="MaksStablevekt" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="FraDato" type="ns0:BooleanEnum" minOccurs="0"/>
+      <xs:element name="TilDato" type="ns0:BooleanEnum" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LeverandorerType">
+    <xs:sequence>
+      <xs:element name="Leverandor" type="b:LeverandorType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LeverandorType">
+    <xs:sequence>
+      <xs:element name="DeltakerNummer" type="ns0:DeltagerNrType">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Leverandørens deltakernummer i NOBB</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Navn">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Leverandørens navn</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ErVareeier" type="ns0:BooleanEnum">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Er leverandøren vareeier for varen? (Ja/Nei)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VareNummer">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Leverandørens varenummer</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Pakninger" type="b:LeverandorPakningerType">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Leverandørens pakninnger</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Merkinger" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Leverandørens merkinger</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="ns0:MerkingerType"/>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Medier" type="b:MedierType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Leverandørens medier</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UtgarDato" type="xs:date" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Varen utgår fra leverandøren denne dato</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LeverandorPakningerType">
+    <xs:sequence>
+      <xs:element name="Pakning" type="b:PakningType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MedierType">
+    <xs:sequence>
+      <xs:element name="Media" type="ns0:MediaLinkType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TUNType">
+    <xs:sequence>
+      <xs:element name="TUN" type="ns0:ProduktIdentifikatorType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Produktidentifikator (Danmark)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FINFOType">
+    <xs:sequence>
+      <xs:element name="FINFO" type="ns0:ProduktIdentifikatorType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="nb">Produktidentifikator (Sverige)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- Export Containers -->
+  <xs:element name="VareResult">
+    <xs:annotation>
+      <xs:documentation xml:lang="nb">Meldingens rot-node. Vareeksport resultat.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header">
+          <xs:annotation>
+            <xs:documentation xml:lang="nb">Eksport metadata</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EksportType" type="ns0:EksportType"/>
+              <xs:element name="Result" type="ns0:ResultType"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VareListe">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Vare" type="b:VareType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VareListe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Vare" type="b:VareType" maxOccurs="unbounded"/>
+        <xs:element name="EksportKritiera" type="b:VareEksportKriteria" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
