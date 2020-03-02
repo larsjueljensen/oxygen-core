@@ -1,4 +1,8 @@
+
 import {OxygenController} from "./oxygen-controller.js";
+import {logBanner} from "./oxygen-utils.js";
+import {getDescendantProp} from "./oxygen-utils.js";
+import {setDescendantProp} from "./oxygen-utils.js";
 
 
 function getPropertyHandler(controller, path) {
@@ -18,23 +22,33 @@ function getPropertyHandler(controller, path) {
 
 const controllerHandler = {
         set: function (obj, prop, val) {
-            let isObject = typeof (val) === 'object';
-            obj[prop] = isObject ? new Proxy(val, getPropertyHandler(obj, prop)) : val;
-            if (typeof(obj._onModelStateChange) === 'function') {
-                if (isObject) {
+
+            if (obj instanceof OxygenController) {
+
+                let oldVal = obj[prop];
+
+                if (oxygen.isObject(val)) {
+
+                    obj[prop] = new Proxy(val, getPropertyHandler(obj, prop));
                     for (const valKey of Object.keys(val)) {
-                        obj._onModelStateChange(val, `${prop}.${valKey}`, val[valKey]);
+                        obj._onModelStateChange(val, `${prop}.${valKey}`, val[valKey], undefined);
                     }
                 }
+
                 else {
-                    obj._onModelStateChange(obj, prop, val);
+                    obj[prop] = val;
+                    obj._onModelStateChange(obj, prop, val, oldVal);
                 }
-            } else {
+            }
+
+            else {
                 throw new ReferenceError('Controller not extending OxygenController', obj);
             }
+
             return true;
         }
 };
+
 
 class Oxygen {
 
@@ -45,10 +59,15 @@ class Oxygen {
 
     init() {
         this.onContentLoaded(function () {
+
             // Let the world know we are alive
-            console.log('Oxygen UI V1.0.0-SNAPSHOT - started');
+//            console.log('Oxygen UI V1.0.0-SNAPSHOT - started');
+
+            logBanner();
+
             this._initControllers();
             this._initDirectives();
+
         }.bind(this));
     }
 
@@ -94,6 +113,19 @@ class Oxygen {
             document.addEventListener("DOMContentLoaded", callback);
         }
     }
+
+    getDescendantProp(obj, path) {
+        return getDescendantProp(obj, path);
+    }
+
+    setDescendantProp(obj, path, value) {
+        return setDescendantProp(obj ,path, value);
+    }
+
+    isObject(value) {
+        return (typeof (value) === 'object');
+    }
+
 
     /**
      * Called by application code to register a controller class.

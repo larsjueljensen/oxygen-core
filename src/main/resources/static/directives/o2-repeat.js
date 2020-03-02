@@ -2,23 +2,6 @@ import {oxygen} from "../framework/oxygen.js";
 
 const NAME = 'o2-repeat';
 
-
-function getDescendantProp(obj, desc) {
-    var arr = desc.split('.');
-    while (arr.length) {
-        obj = obj[arr.shift()];
-    }
-    return obj;
-}
-
-function setDescendantProp(obj, desc, value) {
-    var arr = desc.split('.');
-    while (arr.length > 1) {
-        obj = obj[arr.shift()];
-    }
-    return obj[arr[0]] = value;
-}
-
 class O2Repeat {
 
     constructor(element) {
@@ -32,7 +15,7 @@ class O2Repeat {
 
     init() {
         let modelExpression = this.element.getAttribute(NAME);
-        let modelValue = getDescendantProp(this.controller, modelExpression);
+        let modelValue = oxygen.getDescendantProp(this.controller, modelExpression);
         console.log('initDirective', NAME, this.element, modelValue);
 
     }

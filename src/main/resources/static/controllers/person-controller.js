@@ -5,7 +5,10 @@ import { personService } from "../services/person-service.js";
 
 class PersonController extends OxygenController {
 
-    constructor(element) { super(element); }
+    constructor(element) {
+        super(element);
+        this.addModelListener('person.age', this);
+    }
 
     init() {
         personService.getById(28).then(person => {
@@ -17,6 +20,10 @@ class PersonController extends OxygenController {
                 'Kåre'
             ];
         });
+    }
+
+    onModelChange(modelExpression, newVal, oldVal) {
+        console.log('onModelChange', this, modelExpression, newVal, oldVal);
     }
 
 }
