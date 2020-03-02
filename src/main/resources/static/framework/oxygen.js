@@ -1,3 +1,40 @@
+import {OxygenController} from "./oxygen-controller.js";
+
+
+function getPropertyHandler(controller, path) {
+
+    let handler = {
+        set: function (obj, prop, val) {
+            let propPath = `${path}.${prop}`;
+            let newVal = (typeof(val) === 'object') ? new Proxy(val, getPropertyHandler(controller, propPath)) : val;
+            obj[prop] = newVal;
+            controller._onModelStateChange(obj, propPath, newVal);
+            return true;
+        }
+    };
+
+    return handler;
+}
+
+const controllerHandler = {
+        set: function (obj, prop, val) {
+            let isObject = typeof (val) === 'object';
+            obj[prop] = isObject ? new Proxy(val, getPropertyHandler(obj, prop)) : val;
+            if (typeof(obj._onModelStateChange) === 'function') {
+                if (isObject) {
+                    for (const valKey of Object.keys(val)) {
+                        obj._onModelStateChange(val, `${prop}.${valKey}`, val[valKey]);
+                    }
+                }
+                else {
+                    obj._onModelStateChange(obj, prop, val);
+                }
+            } else {
+                throw new ReferenceError('Controller not extending OxygenController', obj);
+            }
+            return true;
+        }
+};
 
 class Oxygen {
 
@@ -7,7 +44,7 @@ class Oxygen {
     }
 
     init() {
-        oxygen.onContentLoaded(function () {
+        this.onContentLoaded(function () {
 
             // Let the world know we are alive
             console.log('Oxygen UI V1.0.0-SNAPSHOT - started');
@@ -20,7 +57,10 @@ class Oxygen {
 
             // After controllers are registered, initialize them
             for (const name in this.controllers) {
-                this.controllers[name].forEach(controller => controller.init());
+                this.controllers[name].forEach(controller => {
+                    OxygenController.prototype.init.call(controller);
+                    controller.init();
+                });
             }
         }.bind(this));
     }
@@ -38,10 +78,10 @@ class Oxygen {
         }
     }
 
-    getControllerForElement(element) {
-        return this.controllers[element.getAttribute('controller')][element];
-    }
-
+    /**
+     * Called by application code to register a controller class.
+     * @param controller a class extending OxygenController
+     */
     registerControllerClass (controller) {
         this.controllerFunctions[controller.name] = controller;
         this.controllers[controller.name] = [];
@@ -51,12 +91,14 @@ class Oxygen {
         let name = element.getAttribute('controller');
         let controllerList = this.controllers[name];
         if (controllerList) {
-            controllerList.push(new this.controllerFunctions[name](element));
+            let controller = new this.controllerFunctions[name](element);
+            let controllerProxy = new Proxy(controller, controllerHandler);
+            controllerList.push(controllerProxy);
+            window.controller = controllerProxy;
         } else {
             throw new ReferenceError(name + " is not defined");
         }
     }
-
 }
 
 export let oxygen = new Oxygen();

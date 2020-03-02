@@ -9,9 +9,7 @@ class PersonController extends OxygenController {
 
     init() {
         personService.getById(28).then(person => {
-            this.name = person.name;
-            this.age = person.age;
-            super.init();
+            this.person = {name: 'Ole', age: 'Old enough'};
         });
     }
 
