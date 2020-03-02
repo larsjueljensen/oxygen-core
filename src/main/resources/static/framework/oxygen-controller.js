@@ -36,7 +36,7 @@ class OxygenController {
     _fireModelStateChange(obj, prop, val, oldVal) {
         let listeners = this.modelListeners[prop];
         if (listeners) {
-            listeners.forEach(listener => listener.onModelChange(prop, val, oldVal));
+            listeners.forEach(listener => listener(prop, val, oldVal));
         }
     }
 

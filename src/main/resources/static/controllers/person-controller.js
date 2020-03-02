@@ -7,7 +7,7 @@ class PersonController extends OxygenController {
 
     constructor(element) {
         super(element);
-        this.addModelListener('person.age', this);
+        this.addModelListener('person.age', this.onModelChange.bind(this));
     }
 
     init() {

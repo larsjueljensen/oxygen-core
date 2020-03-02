@@ -3,54 +3,7 @@ import {OxygenController} from "./oxygen-controller.js";
 import {logBanner} from "./oxygen-utils.js";
 import {getDescendantProp} from "./oxygen-utils.js";
 import {setDescendantProp} from "./oxygen-utils.js";
-
-
-function getPropertyHandler(controller, path) {
-
-    let handler = {
-        set: function (obj, prop, val) {
-            let propPath = `${path}.${prop}`;
-            let oldVal = obj[prop];
-            let newVal = (oxygen.isObject(val)) ? new Proxy(val, getPropertyHandler(controller, propPath)) : val;
-            obj[prop] = newVal;
-            controller._onModelStateChange(obj, propPath, newVal, oldVal);
-            return true;
-        }
-    };
-
-    return handler;
-}
-
-const controllerHandler = {
-        set: function (obj, prop, val) {
-
-            if (obj instanceof OxygenController) {
-
-                let oldVal = obj[prop];
-
-                if (oxygen.isObject(val)) {
-
-                    obj[prop] = new Proxy(val, getPropertyHandler(obj, prop));
-                    for (const valKey of Object.keys(val)) {
-                        let oldObjVal = (oxygen.isObject(oldVal)) ? oldVal[valKey] : undefined;
-                        obj._onModelStateChange(val, `${prop}.${valKey}`, val[valKey], oldObjVal);
-                    }
-                }
-
-                else {
-                    obj[prop] = val;
-                    obj._onModelStateChange(obj, prop, val, oldVal);
-                }
-            }
-
-            else {
-                throw new ReferenceError('Controller not extending OxygenController', obj);
-            }
-
-            return true;
-        }
-};
-
+import {controllerHandler} from "./oxygen-utils.js";
 
 class Oxygen {
 
@@ -158,6 +111,21 @@ class Oxygen {
 
     registerDirectiveElement(name, element) {
         this.directives[name].push(new this.directiveFunctions[name](element));
+    }
+
+    getControllerFromElement(element) {
+
+        let result = null;
+
+        Object.keys(this.controllers).forEach(name => {
+            this.controllers[name].forEach(controller => {
+                if (Object.is(controller.element, element)) {
+                    result = controller;
+                }
+            });
+        });
+
+        return result;
     }
 }
 
