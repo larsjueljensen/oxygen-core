@@ -10,9 +10,10 @@ function getPropertyHandler(controller, path) {
     let handler = {
         set: function (obj, prop, val) {
             let propPath = `${path}.${prop}`;
-            let newVal = (typeof(val) === 'object') ? new Proxy(val, getPropertyHandler(controller, propPath)) : val;
+            let oldVal = obj[prop];
+            let newVal = (oxygen.isObject(val)) ? new Proxy(val, getPropertyHandler(controller, propPath)) : val;
             obj[prop] = newVal;
-            controller._onModelStateChange(obj, propPath, newVal);
+            controller._onModelStateChange(obj, propPath, newVal, oldVal);
             return true;
         }
     };
@@ -31,7 +32,8 @@ const controllerHandler = {
 
                     obj[prop] = new Proxy(val, getPropertyHandler(obj, prop));
                     for (const valKey of Object.keys(val)) {
-                        obj._onModelStateChange(val, `${prop}.${valKey}`, val[valKey], undefined);
+                        let oldObjVal = (oxygen.isObject(oldVal)) ? oldVal[valKey] : undefined;
+                        obj._onModelStateChange(val, `${prop}.${valKey}`, val[valKey], oldObjVal);
                     }
                 }
 

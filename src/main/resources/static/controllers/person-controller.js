@@ -23,7 +23,7 @@ class PersonController extends OxygenController {
     }
 
     onModelChange(modelExpression, newVal, oldVal) {
-        console.log('onModelChange', this, modelExpression, newVal, oldVal);
+        console.log('onModelChange', modelExpression, newVal, oldVal);
     }
 
 }
