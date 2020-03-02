@@ -30,19 +30,19 @@ class OxygenController {
     }
 
     _attachModelElement(modelElement) {
-
-
         modelElement.addEventListener('keyup', (event) => {
             let propPath = modelElement.getAttribute('model');
             setDescendantProp(this, propPath, modelElement.value);
         });
-        this.modelElements[modelElement.getAttribute('model')] = modelElement;
+
+        this.modelElements[modelElement.getAttribute('model')] = this.modelElements[modelElement.getAttribute('model')] || [];
+        this.modelElements[modelElement.getAttribute('model')].push(modelElement);
     }
 
     _onModelStateChange(obj, prop, val) {
-        let modelElement = this.modelElements[prop];
-        if (modelElement) {
-            modelElement.value = val;
+        let modelElements = this.modelElements[prop];
+        if (modelElements) {
+            modelElements.forEach(modelElement => modelElement.value = val);
         }
     }
 }

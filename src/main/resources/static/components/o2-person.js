@@ -1,7 +1,7 @@
 
 import { personService } from "../services/person-service.js"
 
-class PersonComponent extends HTMLElement {
+class O2Person extends HTMLElement {
 
     constructor() {
         super();
@@ -33,7 +33,7 @@ class PersonComponent extends HTMLElement {
 }
 
 try {
-    window.customElements.define('person-component', PersonComponent);
+    window.customElements.define('o2-person', O2Person);
 }
 catch (err) {
     console.trace(err);
