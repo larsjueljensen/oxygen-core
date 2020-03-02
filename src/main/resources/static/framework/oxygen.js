@@ -75,7 +75,10 @@ class Oxygen {
             Array.prototype.forEach.call(
                 document.querySelectorAll(`[${name}]`),
                 element => oxygen.registerDirectiveElement(name, element));
+        });
 
+        Object.keys(this.directives).forEach(name => {
+            this.directives[name].forEach(directive => directive.init());
         });
     }
 

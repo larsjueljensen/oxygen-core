@@ -10,6 +10,12 @@ class PersonController extends OxygenController {
     init() {
         personService.getById(28).then(person => {
             this.person = {name: 'Ole', age: 'Old enough'};
+            this.test = [
+                'Lars',
+                'Ole',
+                'Didrik',
+                'Kåre'
+            ];
         });
     }
 
