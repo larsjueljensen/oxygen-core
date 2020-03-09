@@ -1,9 +1,11 @@
 
 import {OxygenController} from "./oxygen-controller.js";
-import {logBanner} from "./oxygen-utils.js";
-import {getDescendantProp} from "./oxygen-utils.js";
-import {setDescendantProp} from "./oxygen-utils.js";
-import {controllerHandler} from "./oxygen-utils.js";
+import {
+    logBanner,
+    getDescendantProp,
+    setDescendantProp,
+    controllerHandler
+} from "./oxygen-utils.js";
 
 class Oxygen {
 

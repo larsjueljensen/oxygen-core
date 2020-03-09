@@ -6,6 +6,7 @@ class O2Repeat {
 
     constructor(element) {
         this.element = element;
+        this.template = element.innerHTML;
         this.controller = oxygen.getControllerFromElement(element.closest('[controller]'));
         if (this.controller == null) {
             console.trace('Missing controller for element', element);
@@ -22,7 +23,14 @@ class O2Repeat {
     }
 
     onModelChange(modelExpression, newVal, oldVal) {
-        console.log('o2-repeat.onModelChange', modelExpression, newVal, oldVal);
+        this.model = newVal;
+        this._render();
+    }
+
+    _render() {
+        if (Array.isArray(this.model)) {
+//            this.model.map(item => )
+        }
     }
 
 }

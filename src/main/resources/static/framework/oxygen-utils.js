@@ -18,7 +18,7 @@ function isObject(value) {
 
 function getDescendantProp(obj, path) {
     var pathElements = path.split('.');
-    while (pathElements.length) { obj = obj[pathElements.shift()]; }
+    while (pathElements.length && typeof(obj) !== 'undefined') { obj = obj[pathElements.shift()]; }
     return obj;
 }
 
@@ -54,6 +54,8 @@ const controllerHandler = {
             if (isObject(val)) {
 
                 obj[prop] = new Proxy(val, getPropertyHandler(obj, prop));
+                obj._onModelStateChange(obj, prop, val, oldVal);
+
                 for (const valKey of Object.keys(val)) {
                     let oldObjVal = (isObject(oldVal)) ? oldVal[valKey] : undefined;
                     obj._onModelStateChange(val, `${prop}.${valKey}`, val[valKey], oldObjVal);
